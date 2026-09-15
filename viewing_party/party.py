@@ -30,8 +30,7 @@ def watch_movie(user_data, title):
         if movie["title"] == title: # dictionary[key], value of "title"
             #movie_to_watch = movie
             user_data["watchlist"].remove(movie)
-            user_data["watched"].append(movie)
-            return user_data
+            user_data["watched"].append(movie)      
 
     return user_data
             
