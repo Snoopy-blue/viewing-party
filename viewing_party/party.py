@@ -96,6 +96,7 @@ def get_friends_unique_watched(user_data):
 
     return onlyfriends_watched   
 
+"""Function below is a helper funciton, if there are mutiple friends with their watched lists, we want to have a clean summed friends watched list without any duplication to work on."""
 def get_friends_watched_list(user_data):
     friends_watched_list = []
     for movie_watched in user_data["friends"]:
