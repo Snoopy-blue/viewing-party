@@ -23,12 +23,10 @@ def add_to_watchlist(user_data, movie):
     return user_data
 
 def watch_movie(user_data, title):
-    for movie in user_data["watchlist"]: # Loop through movies in a list. 
-        # user_data["watchlist"] = list contains mutiple dictionaries
-        # movie = each element of the list, dictionary contains title, genere, rating. 
-
-        if movie["title"] == title: # dictionary[key], value of "title"
-            #movie_to_watch = movie
+    # user_data["watchlist"] = list contains mutiple dictionaries
+    # movie = each element of the list, dictionary contains title, genere, rating.    
+    for movie in user_data["watchlist"]: # movie = dict with title, genre, rating 
+        if movie["title"] == title: # dictionary[key], "title"s value
             user_data["watchlist"].remove(movie)
             user_data["watched"].append(movie)      
 
@@ -39,7 +37,7 @@ def watch_movie(user_data, title):
 # ------------- WAVE 2 --------------------
 # -----------------------------------------
 def get_watched_avg_rating(user_data):
-# Return 0.0 if the user has not watched any movies
+    # Return 0.0 if the user has not watched any movies
     if len(user_data["watched"]) == 0:
         return 0.0
 
@@ -47,7 +45,7 @@ def get_watched_avg_rating(user_data):
 
     for movie in user_data["watched"]:
         total_rating += movie["rating"]
-# Calculate and return the average rating
+    # Calculate and return the average rating
     return total_rating / len(user_data["watched"])
 
 def get_most_watched_genre(user_data):
@@ -60,7 +58,7 @@ def get_most_watched_genre(user_data):
             genre_counts[genre] += 1
         else:
             genre_counts[genre] = 1
-# Find the genre with the highest count
+    # Find the genre with the highest count
     max_count = 0
     most_watched_genre = None
 
@@ -79,9 +77,27 @@ def get_unique_watched(user_data):
     friends_watched_list = get_friends_watched_list(user_data)
     me_watched_list = user_data["watched"]
 
+    # Method 1: loop through list to get movie and use movie through a 2nd loop.
     for movie in me_watched_list:
         if movie not in friends_watched_list:
             onlyme_watched.append(movie)
+
+
+    # Method 2: covert to sets. Use O(1), set operations, unique element to improve time efficiency.  
+    # me_watched_set = set()
+    # for movie in me_watched_list:
+        # me_watched_set.add(movie["title"])
+
+    # friends_watched_set = set()
+    # for friend in user_data["friends"]:
+        # for movie in friend["watched"]:
+            # friends_watched_set.add(movie["title"])
+
+    # onlyme_watched_set = me_watched_set.difference(friends_watched_set)
+    # for movie in me_watched_list:
+        # if movie["title"] in onlyme_watched_set:
+            # onlyme_watched.append(movie)
+    
 
     return onlyme_watched 
 
@@ -96,8 +112,12 @@ def get_friends_unique_watched(user_data):
 
     return onlyfriends_watched   
 
-"""Function below is a helper funciton, if there are mutiple friends with their watched lists, we want to have a clean summed friends watched list without any duplication to work on."""
 def get_friends_watched_list(user_data):
+    """
+    Function below is a helper function, if there are multiple 
+    friends with their watched lists, we want to have a clean 
+    summed friends watched list without any duplication to work on.
+    """
     friends_watched_list = []
     for movie_watched in user_data["friends"]:
         for movie in movie_watched["watched"]:

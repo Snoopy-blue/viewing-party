@@ -52,11 +52,7 @@ ACTION_3 = {
     "genre": "Action",
     "rating": 3.5
 }
-INTRIGUE_1 = {
-    "title": "Recursion",
-    "genre": "Intrigue",
-    "rating": 2.0
-}
+
 INTRIGUE_2 = {
     "title": "Instructor Student TA Manager",
     "genre": "Intrigue",
